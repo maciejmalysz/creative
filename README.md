@@ -10,6 +10,14 @@ Polish Employee Creative Work & Copyright procedure
 
 ---
 
+## Documentation
+
+- **[Usage Guide](docs/USAGE.md)** — step-by-step instructions for both submission paths (Path A manual + Path B GitHub PR import), prerequisites, troubleshooting, security notes
+- **[Design Document](docs/DESIGN.md)** — full design, decision matrix, threat model
+- **[API Reference](docs/api-reference.md)** — endpoints, fields, CSRF handling, dropdown values
+
+---
+
 ## Two submission paths
 
 The tool itself supports **both** options natively. This repo wraps each path so
