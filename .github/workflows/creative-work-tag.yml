@@ -1,0 +1,32 @@
+name: creative-work-tag
+
+# Auto-label PRs whose title starts with [creative] so they're easy to find later
+# (the Creative Work Tool itself does not read labels — this is a local convenience).
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add 'creative-work' label when title starts with [creative]
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.payload.pull_request.title || "";
+            if (!title.toLowerCase().startsWith("[creative]")) {
+              core.info(`Title does not start with [creative]: ${title}`);
+              return;
+            }
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: ["creative-work"],
+            });
+            core.info("Labelled creative-work");
