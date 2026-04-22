@@ -1,0 +1,22 @@
+# secrets / session captures
+.env
+.env.*
+*.cookie
+*.cookies
+~/.config/creative-work-tool/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.mypy_cache/
+.ruff_cache/
+
+# editors
+.DS_Store
+.idea/
+.vscode/
+
+# project notes (per-session, not for distribution)
+project_notes/
