@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Work Submission - Cisco creative-work-tool integration</title>
+    <link rel="stylesheet" href="cisco.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica", Arial, sans-serif;
+            line-height: 1.7;
+            color: #dbe7f5;
+            background:
+                radial-gradient(circle at top left, rgba(48,112,231,0.18), transparent 34%),
+                radial-gradient(circle at top right, rgba(0,200,255,0.12), transparent 26%),
+                linear-gradient(180deg, #07182d 0%, #0d1117 42%, #0d1117 100%);
+        }
+
+        a { color: var(--cisco-cyber-blue); }
+        a:hover { color: white; }
+
+        .page-shell {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-shell::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(circle at center, black 48%, transparent 100%);
+            opacity: 0.22;
+        }
+
+        .topbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 28px;
+        }
+
+        .brand img {
+            height: 26px;
+            width: auto;
+            display: block;
+        }
+
+        .brand-copy {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.68);
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 44px 24px 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+            gap: 28px;
+            align-items: end;
+        }
+
+        .hero-card,
+        .hero-side,
+        .section,
+        .link-card {
+            background: linear-gradient(180deg, rgba(15,23,41,0.92), rgba(7,24,45,0.94));
+            border: 1px solid rgba(148,163,184,0.14);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+        }
+
+        .hero-card {
+            padding: 38px;
+            border-radius: 28px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(48,112,231,0.14);
+            color: #a9c9ff;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(2.4rem, 5vw, 4.4rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .hero-card > p {
+            font-size: 1.06rem;
+            color: #c8d8ea;
+            max-width: 52rem;
+            margin-bottom: 18px;
+        }
+
+        .hero-side {
+            padding: 26px;
+            border-radius: 24px;
+        }
+
+        .hero-side h2 {
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #9fb9df;
+            margin-bottom: 16px;
+        }
+
+        .hero-side ul { list-style: none; display: grid; gap: 12px; }
+        .hero-side li {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.03);
+            color: #dbe7f5;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .quick-nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: rgba(7,24,45,0.66);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .quick-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .quick-nav a {
+            text-decoration: none;
+            color: #dce8f7;
+            padding: 11px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .quick-nav a:hover,
+        .quick-nav a.active {
+            transform: translateY(-1px);
+            background: rgba(48,112,231,0.2);
+            border-color: rgba(48,112,231,0.55);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 34px 24px 80px;
+        }
+
+        .section {
+            padding: 34px;
+            border-radius: 26px;
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            font-size: clamp(1.55rem, 3vw, 2.25rem);
+            color: white;
+            margin-bottom: 18px;
+            letter-spacing: -0.03em;
+        }
+
+        .section h3 {
+            color: #f7fbff;
+            font-size: 1.2rem;
+            margin: 28px 0 14px;
+        }
+
+        .section p,
+        .section li,
+        .section td,
+        .section th { color: #d2dfef; }
+
+        .section ul,
+        .section ol {
+            margin: 16px 0 16px 24px;
+        }
+
+        .section li { margin-bottom: 8px; }
+
+        .lede {
+            color: #9fc1ee;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .grid-two {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .option-card,
+        .link-card,
+        .info-box {
+            border-radius: 20px;
+            padding: 22px;
+            border: 1px solid rgba(148,163,184,0.14);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .option-card h3,
+        .link-card h3 { margin-top: 0; }
+
+        .comparison,
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,0.16);
+        }
+
+        th {
+            text-align: left;
+            background: rgba(48,112,231,0.18);
+            color: white !important;
+            padding: 14px 16px;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(148,163,184,0.14);
+            vertical-align: top;
+            background: rgba(255,255,255,0.02);
+        }
+
+        tr:hover td { background: rgba(255,255,255,0.04); }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, Monaco, monospace;
+            background: rgba(255,255,255,0.08);
+            color: #9fd2ff;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .prompt-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        pre {
+            background: #06101d;
+            color: #e8f1fb;
+            border: 1px solid rgba(48,112,231,0.18);
+            border-radius: 20px;
+            padding: 22px;
+            overflow: auto;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--cisco-blue);
+            color: white;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .copy-btn:hover { transform: translateY(-1px); background: #4d86ef; }
+        .copy-btn.copied { background: var(--cisco-green); }
+
+        .link-card {
+            display: grid;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link-card:hover {
+            border-color: rgba(48,112,231,0.52);
+            transform: translateY(-2px);
+        }
+
+        .muted { color: #9bb1c8; }
+
+        .footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+            color: #9ab0c8;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .grid-two { grid-template-columns: 1fr; }
+            .hero-card,
+            .hero-side,
+            .section { padding: 24px; }
+        }
+
+        @media (max-width: 768px) {
+            .topbar,
+            .hero,
+            .quick-nav,
+            .container,
+            .footer { padding-left: 16px; padding-right: 16px; }
+            h1 { font-size: 2.4rem; }
+            .comparison,
+            table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="topbar">
+            <div class="brand">
+                <img src="cisco-logo-white.svg" alt="Cisco" onerror="this.style.display='none'">
+                <div class="brand-copy">Cisco creative work docs</div>
+            </div>
+        </div>
+
+        <header class="hero">
+            <div class="hero-card">
+                <div class="eyebrow">Cisco dark theme · static HTML Pages</div>
+                <h1>Creative Work Submission</h1>
+                <p>Cisco creative-work-tool integration</p>
+                <p>Automation for submitting creative work to the Cisco Creative Work Tool — talk to your AI assistant to submit entries under the Polish Employee Creative Work &amp; Copyright procedure (<a href="https://cisco.service-now.com/helpzone?id=kb_article&amp;sysparm_article=KB0066779" target="_blank" rel="noopener noreferrer">KB0066779</a>).</p>
+            </div>
+            <aside class="hero-side">
+                <h2>At a glance</h2>
+                <ul>
+                    <li>Use <strong>direct submission</strong> for documents, decks, recordings, and designs.</li>
+                    <li>Use <strong>GitHub PR import</strong> for code, scripts, automation, IaC, and MCP work.</li>
+                    <li>Both paths require the <code>creative-work-submit</code> skill in your AI assistant.</li>
+                </ul>
+            </aside>
+        </header>
+
+        <div class="quick-nav-wrap">
+            <nav class="quick-nav">
+                <a href="#for-users">👤 FOR USERS</a>
+                <a href="#usage-guide">📘 USAGE GUIDE</a>
+                <a href="#for-developers">🤖 FOR DEVELOPERS</a>
+            </nav>
+        </div>
+
+        <main class="container">
+            <section id="for-users" class="section">
+                <div class="lede">Two ways to submit</div>
+                <h2>Choose the path that matches the deliverable</h2>
+
+                <div class="grid-two">
+                    <article class="option-card">
+                        <h3>Direct submission</h3>
+                        <p>Use when your deliverable is a document, presentation, recording, design, or any artifact that already exists at a Cisco-trusted URL.</p>
+                    </article>
+                    <article class="option-card">
+                        <h3>GitHub PR import</h3>
+                        <p>Use when your deliverable is code, scripts, automation, IaC, or engineering work delivered as a merged or closed pull request.</p>
+                    </article>
+                </div>
+
+                <table class="comparison">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Direct submission</th>
+                            <th>GitHub PR import</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Use when</strong></td>
+                            <td>Documents, presentations, recordings, designs — anything that's not a GitHub PR</td>
+                            <td>Code, scripts, automation, IaC, MCP servers — engineering work delivered as merged PRs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deliverable location</strong></td>
+                            <td>SharePoint, Box, Webex, Confluence (must be Cisco-trusted URL)</td>
+                            <td>github.com or wwwin-github.cisco.com (merged or closed PR)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>How to submit</strong></td>
+                            <td>Tell your AI: "Submit creative work for [title]. Source is [URL]. Upload to SharePoint and submit as [deliverable type]."</td>
+                            <td>Tell your AI: "I merged PR #X in [repo]. Submit it as creative work."</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    Both paths require the <strong><code>creative-work-submit</code> skill</strong> installed in your AI assistant (OpenCode / Claude Code / Cursor).
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="lede">Quickstart</div>
+                <h2>1. Install the skill</h2>
+                <p>Copy <code>skills/creative-work-submit/</code> to your AI assistant's skill directory:</p>
+                <div class="prompt-container">
+                    <pre><code># OpenCode
+cp -r skills/creative-work-submit ~/.config/opencode/skills/
+
+# Claude Code / Cursor
+cp -r skills/creative-work-submit ~/.claude/skills/</code></pre>
+                </div>
+
+                <h2>2. Talk to your AI</h2>
+
+                <h3>Example 1 — Submit a design document from Confluence</h3>
+                <div class="prompt-container">
+                    <pre><code>Submit a Creative Work entry for the Fabric Rollout Automation SRD. The source is the Confluence page at https://scdp.cisco.com/conf/spaces/TSPP/pages/439268357/Fabric+Rollout+Automation+-+SRD — render it to PDF, upload to my SharePoint submissions folder under `mmalysz-creative-work/&lt;yearmonth&gt;/`, then submit it as a 'Requirements gathering and design preparation' deliverable.</code></pre>
+                </div>
+                <p><strong>What the AI does:</strong></p>
+                <ul>
+                    <li>Renders the Confluence page to PDF (via CDP browser automation)</li>
+                    <li>Uploads to your SharePoint submissions folder</li>
+                    <li>Submits the Creative Work Tool form with the SharePoint URL</li>
+                </ul>
+
+                <h3>Example 2 — Import a merged GitHub PR</h3>
+                <div class="prompt-container">
+                    <pre><code>I just merged PR #1 in maciejmalysz/creative on github.com. Submit it as a Creative Work entry — title should stay as the PR title, deliverable URL should be the PR URL, and use my default deliverable type.</code></pre>
+                </div>
+                <p><strong>What the AI does:</strong></p>
+                <ul>
+                    <li>Opens the Creative Work Tool in a browser (with your SSO session)</li>
+                    <li>Clicks "Import from GitHub"</li>
+                    <li>Selects your PR, accepts the terms, and imports it</li>
+                </ul>
+            </section>
+
+            <section id="usage-guide" class="section">
+                <div class="lede">Documentation</div>
+                <h2>Deep guide</h2>
+                <a class="link-card" href="usage.html">
+                    <h3>Open the full Usage Guide</h3>
+                    <p>Includes when to use each submission path, how to formulate your AI prompt, the deliverable type cheat sheet, troubleshooting, installation, and the developer appendix.</p>
+                    <p class="muted">Go to <strong>usage.html</strong> →</p>
+                </a>
+            </section>
+
+            <section id="for-developers" class="section">
+                <div class="lede">For developers</div>
+                <h2>Scripts, API reference, and design docs</h2>
+
+                <h3>Repository layout</h3>
+                <div class="prompt-container">
+                    <pre><code>creative/
+├── README.md
+├── docs/
+│   ├── USAGE.md             # End-user guide (rendered to GitHub Pages)
+│   ├── DESIGN.md            # Full design — both paths, decision matrix, threat model
+│   └── api-reference.md     # Endpoints, fields, CSRF, cookies, dropdowns
+├── skills/
+│   └── creative-work-submit/
+│       └── SKILL.md         # OpenCode skill — drives both paths
+├── scripts/
+│   ├── submit_creative_work.py   # Path A — direct POST
+│   └── list_github_prs.py        # Path B — preview PRs that would be imported
+└── .github/
+    └── pull_request_template.md  # PR title/body conventions for clean import</code></pre>
+                </div>
+
+                <h3>Direct script usage (Path A)</h3>
+                <div class="prompt-container">
+                    <pre><code># 1. Capture session cookie + CSRF from your authenticated browser
+python3 scripts/submit_creative_work.py --capture-help
+
+# 2. Export the values
+export CWT_COOKIE="SESSION=…; ITDC_…=…"
+export CWT_CSRF="fa38c8ee-f474-44cc-88fa-09298a459867"
+
+# 3. Submit
+python3 scripts/submit_creative_work.py \
+    --title "NSO Service Pack v2 design doc" \
+    --url   "https://wwwin-github.cisco.com/mmalysz/nso-svc/blob/main/docs/v2.md" \
+    --org   "CX" \
+    --team  "CX EMEA" \
+    --manager "Imie Nazwisko" \
+    --job   "Customer Delivery Architect" \
+    --deliverable "Design Document"</code></pre>
+                </div>
+
+                <h3>GitHub PR pre-flight (Path B)</h3>
+                <div class="prompt-container">
+                    <pre><code>export GH_TOKEN="github_pat_…"           # fine-grained PAT
+python3 scripts/list_github_prs.py --since-26th
+
+# For Cisco internal GitHub:
+python3 scripts/list_github_prs.py --host wwwin-github.cisco.com --since-26th</code></pre>
+                </div>
+
+                <h3>Why not a full MCP server?</h3>
+                <p>Considered and rejected for v1 — see <a href="DESIGN.md#decision-skill--scripts-vs-mcp-server">docs/DESIGN.md</a> for the trade-offs. Short version: the tool already exposes a usable POST API and a built-in GitHub importer. A skill + two small scripts cover 100% of the workflow at a fraction of the maintenance cost.</p>
+
+                <h3>Support</h3>
+                <ul>
+                    <li><strong>Tool support</strong>: <code>itdcsupport@cisco.com</code></li>
+                    <li><strong>Procedure questions</strong>: HelpZone → Pay Inquiry → "creative work"</li>
+                    <li><strong>Repo issues</strong>: <a href="https://github.com/maciejmalysz/creative/issues" target="_blank" rel="noopener noreferrer">https://github.com/maciejmalysz/creative/issues</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div>© Cisco · Creative Work Submission docs</div>
+            <div><a href="https://github.com/maciejmalysz/creative" target="_blank" rel="noopener noreferrer">github.com/maciejmalysz/creative</a></div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('pre').forEach((pre) => {
+            const code = pre.querySelector('code');
+            if (!code || pre.parentElement.classList.contains('prompt-container') === false) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'prompt-container';
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+            }
+        });
+
+        document.querySelectorAll('.prompt-container').forEach((container) => {
+            const pre = container.querySelector('pre');
+            if (!pre || container.querySelector('.copy-btn')) return;
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.type = 'button';
+            btn.textContent = 'Copy';
+            btn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(pre.innerText.trim());
+                    btn.textContent = 'Copied';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 1800);
+                } catch {
+                    btn.textContent = 'Failed';
+                }
+            });
+            container.appendChild(btn);
+        });
+
+        const navLinks = Array.from(document.querySelectorAll('.quick-nav a'));
+        const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+                });
+            });
+        }, { rootMargin: '-40% 0px -45% 0px', threshold: 0 });
+        sections.forEach((section) => observer.observe(section));
+    </script>
+</body>
+</html>
