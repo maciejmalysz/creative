@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage Guide - Two paths to submit a Creative Work entry</title>
+    <link rel="stylesheet" href="cisco.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica", Arial, sans-serif;
+            line-height: 1.7;
+            color: #dbe7f5;
+            background:
+                radial-gradient(circle at top left, rgba(48,112,231,0.16), transparent 32%),
+                radial-gradient(circle at 85% 20%, rgba(0,200,255,0.11), transparent 24%),
+                linear-gradient(180deg, #07182d 0%, #0d1117 38%, #0d1117 100%);
+        }
+
+        a { color: var(--cisco-cyber-blue); }
+        a:hover { color: white; }
+
+        .page-shell::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: radial-gradient(circle at center, black 52%, transparent 100%);
+            opacity: 0.26;
+        }
+
+        .topbar,
+        .hero,
+        .quick-nav,
+        .content-shell,
+        .footer {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .topbar {
+            padding-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand img { height: 26px; width: auto; display: block; }
+
+        .brand-copy {
+            color: rgba(255,255,255,0.68);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .hero {
+            padding-top: 42px;
+            padding-bottom: 24px;
+        }
+
+        .hero-card {
+            padding: 40px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(15,23,41,0.92), rgba(7,24,45,0.96));
+            border: 1px solid rgba(148,163,184,0.14);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.28);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(48,112,231,0.14);
+            color: #accaff;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            color: white;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #c8d8ea;
+            max-width: 55rem;
+            font-size: 1.06rem;
+        }
+
+        .quick-nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 25;
+            backdrop-filter: blur(18px);
+            background: rgba(7,24,45,0.7);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .quick-nav {
+            padding-top: 14px;
+            padding-bottom: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .quick-nav a {
+            text-decoration: none;
+            color: #dce8f7;
+            padding: 11px 16px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .quick-nav a:hover,
+        .quick-nav a.active {
+            background: rgba(48,112,231,0.2);
+            border-color: rgba(48,112,231,0.55);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .content-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 24px;
+            padding-top: 30px;
+            padding-bottom: 80px;
+            align-items: start;
+        }
+
+        .content { min-width: 0; }
+
+        .section {
+            padding: 34px;
+            border-radius: 26px;
+            margin-bottom: 22px;
+            background: linear-gradient(180deg, rgba(15,23,41,0.92), rgba(7,24,45,0.94));
+            border: 1px solid rgba(148,163,184,0.14);
+            box-shadow: 0 20px 72px rgba(0,0,0,0.24);
+        }
+
+        .section-header {
+            color: white;
+            font-size: clamp(1.55rem, 3vw, 2.2rem);
+            letter-spacing: -0.03em;
+            margin-bottom: 18px;
+        }
+
+        .lede {
+            color: #9fc1ee;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: white;
+            font-size: 1.95rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 18px;
+        }
+
+        h3 {
+            color: #f7fbff;
+            font-size: 1.2rem;
+            margin: 28px 0 14px;
+        }
+
+        p, li, td, th { color: #d2dfef; }
+
+        ul, ol { margin: 16px 0 16px 24px; }
+        li { margin-bottom: 8px; }
+
+        .toc {
+            position: sticky;
+            top: 84px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(15,23,41,0.92), rgba(7,24,45,0.96));
+            border: 1px solid rgba(148,163,184,0.14);
+            padding: 22px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+        }
+
+        .toc h2 {
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #9fb9df;
+            margin-bottom: 14px;
+        }
+
+        .toc nav {
+            display: grid;
+            gap: 6px;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #c9d8ea;
+            padding: 10px 12px;
+            border-radius: 12px;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            font-size: 0.93rem;
+        }
+
+        .toc a:hover,
+        .toc a.active {
+            background: rgba(48,112,231,0.18);
+            color: white;
+            transform: translateX(2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,0.16);
+        }
+
+        th {
+            text-align: left;
+            background: rgba(48,112,231,0.18);
+            color: white !important;
+            padding: 14px 16px;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(148,163,184,0.14);
+            vertical-align: top;
+            background: rgba(255,255,255,0.02);
+        }
+
+        tr:hover td { background: rgba(255,255,255,0.04); }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, Monaco, monospace;
+            background: rgba(255,255,255,0.08);
+            color: #9fd2ff;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .prompt-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        pre {
+            background: #06101d;
+            color: #e8f1fb;
+            border: 1px solid rgba(48,112,231,0.18);
+            border-radius: 20px;
+            padding: 22px;
+            overflow: auto;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--cisco-blue);
+            color: white;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .copy-btn:hover { transform: translateY(-1px); background: #4d86ef; }
+        .copy-btn.copied { background: var(--cisco-green); }
+
+        .info-box {
+            border-radius: 20px;
+            padding: 20px 22px;
+            margin: 18px 0;
+            border: 1px solid rgba(148,163,184,0.16);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .info-box.warning { border-left: 4px solid var(--cisco-orange); }
+        .info-box.success { border-left: 4px solid var(--cisco-green); }
+
+        .footer {
+            padding-bottom: 40px;
+            color: #9ab0c8;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 1024px) {
+            .content-shell { grid-template-columns: 1fr; }
+            .toc { position: relative; top: 0; order: -1; }
+        }
+
+        @media (max-width: 768px) {
+            .topbar,
+            .hero,
+            .quick-nav,
+            .content-shell,
+            .footer { padding-left: 16px; padding-right: 16px; }
+            .hero-card,
+            .section,
+            .toc { padding: 24px; }
+            h1 { font-size: 2.35rem; }
+            table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="topbar">
+            <div class="brand">
+                <img src="cisco-logo-white.svg" alt="Cisco" onerror="this.style.display='none'">
+                <div class="brand-copy">Cisco creative work docs</div>
+            </div>
+        </div>
+
+        <header class="hero">
+            <div class="hero-card">
+                <div class="eyebrow">Full guide · static HTML Pages</div>
+                <h1>Usage Guide</h1>
+                <p>Two paths to submit a Creative Work entry</p>
+            </div>
+        </header>
+
+        <div class="quick-nav-wrap">
+            <nav class="quick-nav">
+                <a href="index.html">← Landing page</a>
+                <a href="#assumptions">Assumptions</a>
+                <a href="#two-submission-options">Two options</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#installation">Install</a>
+                <a href="#for-developers-appendix">Developer appendix</a>
+            </nav>
+        </div>
+
+        <div class="content-shell">
+            <main class="content">
+                <section class="section">
+                    <div class="lede">Audience</div>
+                    <h2 id="audience">Cisco engineers with the <code>creative-work-submit</code> skill installed in their AI assistant</h2>
+                    <p>OpenCode / Claude Code / Cursor.</p>
+                    <p><strong>What this guide covers</strong>: How to talk to your AI assistant to submit creative work entries — not how to run Python scripts directly.</p>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Assumptions</div>
+                    <h2 id="assumptions">What must already be in place</h2>
+                    <p>You have:</p>
+                    <ul>
+                        <li>The <code>creative-work-submit</code> skill installed in your AI assistant</li>
+                        <li>An active Duo SSO session to <code>cxpp-external-proxy-alln.cisco.com</code> (the Creative Work Tool)</li>
+                        <li>CDP browser automation available (your AI can control Chrome with your real cookies)</li>
+                    </ul>
+                    <p>If you're missing any of these, see the <a href="#installation">Installation</a> section below.</p>
+                </section>
+
+                <section class="section">
+                    <div class="lede">The two submission options</div>
+                    <h2 id="two-submission-options">Use the tool's two native paths through conversational prompts</h2>
+                    <p>The Creative Work Tool supports two native submission paths. This guide shows you how to use each via conversational prompts to your AI assistant.</p>
+
+                    <h3>Option A — Direct submission</h3>
+                    <p><strong>Use when</strong>: Your deliverable is a <strong>document, presentation, recording, design, or any artifact</strong> that already exists somewhere (SharePoint, Box, Webex recording, Confluence page).</p>
+                    <p><strong>Requirements</strong>:</p>
+                    <ul>
+                        <li>The deliverable must be at a <strong>Cisco-trusted URL</strong> (cisco.sharepoint.com, box.com, webex.com, etc.)</li>
+                        <li>Personal SharePoint URLs and public links are rejected by the tool</li>
+                    </ul>
+                    <p><strong>What the AI handles</strong>:</p>
+                    <ol>
+                        <li>Rendering or exporting the source (e.g., Confluence page → PDF)</li>
+                        <li>Uploading to your SharePoint submissions folder</li>
+                        <li>Submitting the Creative Work Tool form with the SharePoint URL</li>
+                    </ol>
+
+                    <h3>Option B — GitHub PR import</h3>
+                    <p><strong>Use when</strong>: Your deliverable is <strong>code, scripts, automation, IaC, a workflow, an MCP server</strong> — anything that lives in a Git repository and was delivered as a pull request.</p>
+                    <p><strong>Requirements</strong>:</p>
+                    <ul>
+                        <li>PR must be <strong>merged or closed</strong> on either <code>github.com</code> or <code>wwwin-github.cisco.com</code></li>
+                        <li>A GitHub API token (fine-grained PAT) must be configured in your Creative Work Tool profile</li>
+                    </ul>
+                    <p><strong>Convention</strong>: PR titles should start with <code>[creative]</code> (the auto-label workflow in this repo will tag it; the tool doesn't require this but it makes PRs easy to find later).</p>
+                    <p><strong>What the AI handles</strong>:</p>
+                    <ol>
+                        <li>Opening the Creative Work Tool in a browser (with your SSO session)</li>
+                        <li>Clicking "Import from GitHub"</li>
+                        <li>Selecting the PR row, accepting the terms, and clicking "Import Selected"</li>
+                    </ol>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Comparison table</div>
+                    <h2 id="comparison-table">Direct submission vs. GitHub PR import</h2>
+                    <table class="comparison">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Direct submission</th>
+                                <th>GitHub PR import</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Best for</strong></td>
+                                <td>Documents, decks, recordings, designs</td>
+                                <td>Code, IaC, automation, MCP servers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Where deliverable lives</strong></td>
+                                <td>SharePoint / Box / Webex / Confluence-exported</td>
+                                <td>github.com or wwwin-github.cisco.com</td>
+                            </tr>
+                            <tr>
+                                <td><strong>URL constraints</strong></td>
+                                <td>Must be Cisco-trusted URL (no personal SharePoint, no public links)</td>
+                                <td>Must be a merged/closed PR</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pre-requisites</strong></td>
+                                <td>None beyond the skill</td>
+                                <td>GitHub API token configured in Creative Work Tool profile</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Who fills the form</strong></td>
+                                <td>You + AI (deliverable type, dates, description)</td>
+                                <td>Tool pre-fills from PR title/body; you confirm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="section">
+                    <div class="lede">How to formulate your request to the AI</div>
+                    <h2 id="how-to-formulate-your-request-to-the-ai">Give the AI the submission context upfront</h2>
+                    <p>When asking your AI assistant to submit creative work, include:</p>
+                    <ul>
+                        <li><strong>Source URL or PR reference</strong> — where the deliverable lives</li>
+                        <li><strong>Deliverable type</strong> (if not using your default) — see <a href="#deliverable-type-cheat-sheet">Deliverable type cheat sheet</a></li>
+                        <li><strong>Target SharePoint subfolder</strong> (for direct submissions) — e.g., <code>mmalysz-creative-work/202604/</code></li>
+                        <li><strong>Dates</strong> (if not "today") — start date, end date, or both</li>
+                    </ul>
+                    <p><strong>Example prompts</strong>:</p>
+                    <ul>
+                        <li>"Submit creative work for [title]. Source is [URL]. Upload to SharePoint and submit as [deliverable type]."</li>
+                        <li>"I merged PR #X in [repo]. Submit it as creative work."</li>
+                        <li>"Submit the deck at [SharePoint URL] as a 'Knowledge sharing internal: presentations / training' deliverable."</li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Two worked examples</div>
+                    <h2 id="two-worked-examples">Exact prompts and full flow</h2>
+
+                    <h3>Example 1 — Direct submission of an SRD PDF</h3>
+                    <p><strong>User prompt to AI</strong>:</p>
+                    <div class="prompt-container">
+                        <pre><code>Submit a Creative Work entry for the Fabric Rollout Automation SRD. The source is the Confluence page at https://scdp.cisco.com/conf/spaces/TSPP/pages/439268357/Fabric+Rollout+Automation+-+SRD — render it to PDF, upload to my SharePoint submissions folder under `mmalysz-creative-work/&lt;yearmonth&gt;/`, then submit it as a 'Requirements gathering and design preparation' deliverable.</code></pre>
+                    </div>
+                    <p><strong>What the AI does end-to-end</strong>:</p>
+                    <ol>
+                        <li><strong>Renders the Confluence page to PDF</strong> via CDP <code>Page.printToPDF</code> (Confluence's flyingpdf endpoint needs CSRF + a session that bypasses available tokens — the print-to-PDF path is reliable)</li>
+                        <li><strong>Uploads the PDF to SharePoint</strong> at <code>https://cisco.sharepoint.com/sites/ITDCSubmissions/Shared Documents/Submissions/&lt;cec&gt;/mmalysz-creative-work/&lt;yyyymm&gt;/</code> via SharePoint REST <code>_api/web/folders</code> + <code>Files/add</code> (driven from the SharePoint tab in CDP Chrome — uses your real cookies)</li>
+                        <li><strong>Reads the form CSRF + defaults</strong> from the hidden <code>#creativeWorkModal</code> on the Creative Work Tool page</li>
+                        <li><strong>POSTs the new entry</strong> via <code>fetch()</code> from inside the Creative Work Tool page (200 OK → redirects to calendar)</li>
+                    </ol>
+                    <p><strong>What success looks like</strong>:</p>
+                    <ul>
+                        <li>The Creative Work Tool calendar at <code>?year=YYYY&amp;month=M</code> shows the new entry with status <code>Pending</code></li>
+                        <li>The SharePoint folder contains the uploaded PDF</li>
+                    </ul>
+
+                    <h3>Example 2 — GitHub PR auto-import</h3>
+                    <p><strong>User prompt to AI</strong>:</p>
+                    <div class="prompt-container">
+                        <pre><code>I just merged PR #1 in maciejmalysz/creative on github.com. Submit it as a Creative Work entry — title should stay as the PR title, deliverable URL should be the PR URL, and use my default deliverable type.</code></pre>
+                    </div>
+                    <p><strong>What the AI does end-to-end</strong>:</p>
+                    <ol>
+                        <li><strong>Opens the Creative Work Tool page</strong> in CDP Chrome (port 9225, finds tab via <code>cdp-command.py tabs</code>)</li>
+                        <li><strong>Clicks "Import from GitHub"</strong> → the tool fetches the user's recent merged PRs via the GitHub token in their profile</li>
+                        <li><strong>Locates the PR row</strong> matching the URL/repo → checks its checkbox</li>
+                        <li><strong>Checks the mandatory terms checkbox</strong> (<code>#githubPrsTermsCheckbox</code>)</li>
+                        <li><strong>Clicks "Import Selected"</strong> (<code>#modal-save</code>) → "Successfully imported 1 GitHub pull request(s)!"</li>
+                    </ol>
+                    <p><strong>What success looks like</strong>:</p>
+                    <ul>
+                        <li>The Creative Work Tool calendar shows the new entry with the PR title</li>
+                        <li>The deliverable URL is the PR URL</li>
+                        <li>Status is <code>Pending</code> until manager approval</li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Deliverable type cheat sheet</div>
+                    <h2 id="deliverable-type-cheat-sheet">Map the work to the right dropdown value</h2>
+                    <p>When submitting via <strong>direct submission</strong> (Path A), you must specify a deliverable type. The tool's dropdown includes:</p>
+                    <ul>
+                        <li><strong>"Requirements gathering and design preparation"</strong> → SRDs, HLDs, LLDs, design docs, architecture diagrams</li>
+                        <li><strong>"Automation and software development: scripting and coding"</strong> → repos, scripts, MCP servers, workflows, automation tools</li>
+                        <li><strong>"Knowledge sharing internal: presentations / training"</strong> → decks, videos, demos, training materials</li>
+                        <li><strong>"Customer engagement: workshops / consulting"</strong> → workshop materials, consulting deliverables, customer-facing docs</li>
+                    </ul>
+                    <p>For <strong>GitHub PR import</strong> (Path B), the tool defaults to <strong>"Code Contribution"</strong> (or whatever is set in your profile).</p>
+                    <div class="info-box"><strong>Note</strong>: The full dropdown list is dynamic and depends on your org/team selection. See the Creative Work Tool form for the complete list.</div>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Troubleshooting</div>
+                    <h2 id="troubleshooting">Common failure modes and fixes</h2>
+
+                    <h3>"Personal SharePoint URL rejected"</h3>
+                    <p><strong>Symptom</strong>: The tool rejects a SharePoint URL like <code>https://cisco.sharepoint.com/personal/mmalysz/...</code></p>
+                    <p><strong>Fix</strong>: Upload to the <strong>ITDCSubmissions</strong> site instead. The AI knows the path:</p>
+                    <div class="prompt-container">
+                        <pre><code>https://cisco.sharepoint.com/sites/ITDCSubmissions/Shared Documents/Submissions/&lt;cec&gt;/mmalysz-creative-work/&lt;yyyymm&gt;/</code></pre>
+                    </div>
+                    <p>Tell your AI: "Upload to ITDCSubmissions under my creative work folder."</p>
+
+                    <h3>"GitHub PR not appearing in import dialog"</h3>
+                    <p><strong>Symptom</strong>: You merged a PR but it doesn't show up when you click "Import from GitHub" in the tool.</p>
+                    <p><strong>Fix</strong>:</p>
+                    <ol>
+                        <li>Confirm you have a GitHub API token configured in your Creative Work Tool profile (<code>Settings → GitHub → PAT</code>)</li>
+                        <li>Reload the Creative Work Tool page (the PR list is fetched on page load)</li>
+                        <li>Verify the PR is <strong>merged or closed</strong> (not just open)</li>
+                        <li>Verify you are the PR <strong>author</strong> (the tool filters on <code>author:@me</code>)</li>
+                    </ol>
+
+                    <h3>"PR import shows 'no PRs found'"</h3>
+                    <p><strong>Symptom</strong>: The "Import from GitHub" dialog is empty even though you have merged PRs.</p>
+                    <p><strong>Fix</strong>: The tool only fetches PRs <strong>since the 26th of the previous month</strong> (matches the Polish payroll cutoff). If your PR was merged before that date, it won't appear. You can still submit it via <strong>direct submission</strong> (Path A) using the PR URL.</p>
+
+                    <h3>"Form POST returns 403"</h3>
+                    <p><strong>Symptom</strong>: The AI reports a 403 error when submitting the form.</p>
+                    <p><strong>Fix</strong>: The CSRF token has expired. Reload the Creative Work Tool page in your browser and let the AI re-read the form. CSRF tokens are issued per page load and expire after ~8–10 hours.</p>
+
+                    <h3>"Duo session expired"</h3>
+                    <p><strong>Symptom</strong>: The AI reports a redirect to <code>sso.duosecurity.com</code> when trying to access the Creative Work Tool.</p>
+                    <p><strong>Fix</strong>: Your Duo SSO session has expired. Open the Creative Work Tool in your browser, complete the Duo challenge, then retry the AI submission.</p>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Installation</div>
+                    <h2 id="installation">Install the skill and browser automation prerequisites</h2>
+
+                    <h3>1. Install the skill</h3>
+                    <p>Copy the skill to your AI assistant's skill directory:</p>
+                    <div class="prompt-container">
+                        <pre><code># OpenCode
+cp -r skills/creative-work-submit ~/.config/opencode/skills/
+
+# Claude Code / Cursor
+cp -r skills/creative-work-submit ~/.claude/skills/</code></pre>
+                    </div>
+
+                    <h3>2. Verify CDP browser automation</h3>
+                    <p>The skill uses CDP (Chrome DevTools Protocol) to control your browser with your real cookies. Verify it's available:</p>
+                    <div class="prompt-container">
+                        <pre><code># Check if the cdp-browser-automation skill is installed
+ls ~/.config/opencode/skills/cdp-browser-automation/</code></pre>
+                    </div>
+                    <p>If missing, install it from the <code>opencode-config</code> repo or ask your AI: "Install the cdp-browser-automation skill."</p>
+
+                    <h3>3. Configure GitHub token (for PR import only)</h3>
+                    <p>If you plan to use <strong>GitHub PR import</strong> (Path B):</p>
+                    <ol>
+                        <li>Generate a fine-grained GitHub PAT at <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener noreferrer">https://github.com/settings/tokens?type=beta</a>
+                            <ul>
+                                <li>Scope: <strong>Pull requests: Read</strong></li>
+                                <li>Repositories: Select the repos you want to import PRs from</li>
+                            </ul>
+                        </li>
+                        <li>Open the Creative Work Tool at <a href="https://cxpp-external-proxy-alln.cisco.com/creative-work-tool/" target="_blank" rel="noopener noreferrer">https://cxpp-external-proxy-alln.cisco.com/creative-work-tool/</a></li>
+                        <li>Go to <strong>Settings → GitHub</strong> and paste the PAT</li>
+                    </ol>
+                </section>
+
+                <section class="section">
+                    <div class="lede">For developers / appendix</div>
+                    <h2 id="for-developers-appendix">Run the scripts directly if you prefer</h2>
+
+                    <h3>Direct script usage (Path A)</h3>
+                    <p>If you prefer to run the Python script directly (without the AI skill):</p>
+                    <div class="prompt-container">
+                        <pre><code># 1. Capture session cookie + CSRF from your authenticated browser
+python3 scripts/submit_creative_work.py --capture-help
+
+# 2. Export the values
+export CWT_COOKIE="SESSION=…; ITDC_…=…"
+export CWT_CSRF="fa38c8ee-f474-44cc-88fa-09298a459867"
+
+# 3. Submit
+python3 scripts/submit_creative_work.py \
+    --title "NSO Service Pack v2 design doc" \
+    --url   "https://wwwin-github.cisco.com/mmalysz/nso-svc/blob/main/docs/v2.md" \
+    --org   "CX" \
+    --team  "CX EMEA" \
+    --manager "Imie Nazwisko" \
+    --job   "Customer Delivery Architect" \
+    --deliverable "Design Document"</code></pre>
+                    </div>
+
+                    <h3>GitHub PR pre-flight (Path B)</h3>
+                    <p>To preview what PRs the tool will see before opening the import dialog:</p>
+                    <div class="prompt-container">
+                        <pre><code>export GH_TOKEN="github_pat_…"           # fine-grained PAT
+python3 scripts/list_github_prs.py --since-26th
+
+# For Cisco internal GitHub:
+python3 scripts/list_github_prs.py --host wwwin-github.cisco.com --since-26th</code></pre>
+                    </div>
+
+                    <h3>API reference</h3>
+                    <p>Full endpoint documentation, field schemas, and CSRF handling: <a href="api-reference.md">api-reference.md</a></p>
+
+                    <h3>Design documentation</h3>
+                    <p>Architecture, decision matrix, threat model: <a href="DESIGN.md">DESIGN.md</a></p>
+                </section>
+
+                <section class="section">
+                    <div class="lede">Support</div>
+                    <h2 id="support">Where to ask for help</h2>
+                    <ul>
+                        <li><strong>Tool support</strong>: <code>itdcsupport@cisco.com</code></li>
+                        <li><strong>Procedure questions</strong>: HelpZone → Pay Inquiry → "creative work"</li>
+                        <li><strong>Repo issues</strong>: <a href="https://github.com/maciejmalysz/creative/issues" target="_blank" rel="noopener noreferrer">https://github.com/maciejmalysz/creative/issues</a></li>
+                    </ul>
+                </section>
+            </main>
+
+            <aside class="toc">
+                <h2>On this page</h2>
+                <nav id="toc-nav"></nav>
+            </aside>
+        </div>
+
+        <footer class="footer">
+            <div>© Cisco · Creative Work Submission docs</div>
+            <div><a href="https://github.com/maciejmalysz/creative" target="_blank" rel="noopener noreferrer">github.com/maciejmalysz/creative</a></div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('pre').forEach((pre) => {
+            const code = pre.querySelector('code');
+            if (!code || pre.parentElement.classList.contains('prompt-container') === false) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'prompt-container';
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+            }
+        });
+
+        document.querySelectorAll('.prompt-container').forEach((container) => {
+            const pre = container.querySelector('pre');
+            if (!pre || container.querySelector('.copy-btn')) return;
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.type = 'button';
+            btn.textContent = 'Copy';
+            btn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(pre.innerText.trim());
+                    btn.textContent = 'Copied';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 1800);
+                } catch {
+                    btn.textContent = 'Failed';
+                }
+            });
+            container.appendChild(btn);
+        });
+
+        const headings = Array.from(document.querySelectorAll('main h2[id]'));
+        const tocNav = document.getElementById('toc-nav');
+        headings.forEach((heading) => {
+            const link = document.createElement('a');
+            link.href = '#' + heading.id;
+            link.textContent = heading.textContent.replace(/\s+/g, ' ').trim();
+            tocNav.appendChild(link);
+        });
+
+        const tocLinks = Array.from(document.querySelectorAll('#toc-nav a'));
+        const quickLinks = Array.from(document.querySelectorAll('.quick-nav a[href^="#"]'));
+        const activate = (id) => {
+            tocLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+            quickLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) activate(entry.target.id);
+            });
+        }, { rootMargin: '-35% 0px -52% 0px', threshold: 0 });
+
+        headings.forEach((heading) => observer.observe(heading));
+    </script>
+</body>
+</html>

@@ -1,50 +1,97 @@
 # creative
 
-Automation for submitting creative work to the Cisco **Creative Work Tool**
-(`https://cxpp-external-proxy-alln.cisco.com/creative-work-tool/`) under the
-Polish Employee Creative Work & Copyright procedure
-([KB0066779](https://cisco.service-now.com/helpzone?id=kb_article&sysparm_article=KB0066779)).
+**Automation for submitting creative work to the Cisco Creative Work Tool** — talk to your AI assistant to submit entries under the Polish Employee Creative Work & Copyright procedure ([KB0066779](https://cisco.service-now.com/helpzone?id=kb_article&sysparm_article=KB0066779)).
 
-> **Status**: Design + working scripts. Production submission validated end-to-end with
-> a real cookie/CSRF, both for manual entries and GitHub PR import.
+---
+
+## Two ways to submit
+
+| | Direct submission | GitHub PR import |
+|--|--|--|
+| **Use when** | Documents, presentations, recordings, designs — anything that's not a GitHub PR | Code, scripts, automation, IaC, MCP servers — engineering work delivered as merged PRs |
+| **Deliverable location** | SharePoint, Box, Webex, Confluence (must be Cisco-trusted URL) | github.com or wwwin-github.cisco.com (merged or closed PR) |
+| **How to submit** | Tell your AI: "Submit creative work for [title]. Source is [URL]. Upload to SharePoint and submit as [deliverable type]." | Tell your AI: "I merged PR #X in [repo]. Submit it as creative work." |
+
+Both paths require the **`creative-work-submit` skill** installed in your AI assistant (OpenCode / Claude Code / Cursor).
+
+---
+
+## Quickstart
+
+### 1. Install the skill
+
+Copy `skills/creative-work-submit/` to your AI assistant's skill directory:
+
+```bash
+# OpenCode
+cp -r skills/creative-work-submit ~/.config/opencode/skills/
+
+# Claude Code / Cursor
+cp -r skills/creative-work-submit ~/.claude/skills/
+```
+
+### 2. Talk to your AI
+
+**Example 1 — Submit a design document from Confluence:**
+
+> "Submit a Creative Work entry for the Fabric Rollout Automation SRD. The source is the Confluence page at https://scdp.cisco.com/conf/spaces/TSPP/pages/439268357/Fabric+Rollout+Automation+-+SRD — render it to PDF, upload to my SharePoint submissions folder under `mmalysz-creative-work/<yearmonth>/`, then submit it as a 'Requirements gathering and design preparation' deliverable."
+
+**What the AI does:**
+- Renders the Confluence page to PDF (via CDP browser automation)
+- Uploads to your SharePoint submissions folder
+- Submits the Creative Work Tool form with the SharePoint URL
+
+**Example 2 — Import a merged GitHub PR:**
+
+> "I just merged PR #1 in maciejmalysz/creative on github.com. Submit it as a Creative Work entry — title should stay as the PR title, deliverable URL should be the PR URL, and use my default deliverable type."
+
+**What the AI does:**
+- Opens the Creative Work Tool in a browser (with your SSO session)
+- Clicks "Import from GitHub"
+- Selects your PR, accepts the terms, and imports it
 
 ---
 
 ## Documentation
 
-- **[Usage Guide](docs/USAGE.md)** — step-by-step instructions for both submission paths (Path A manual + Path B GitHub PR import), prerequisites, troubleshooting, security notes
-- **[Design Document](docs/DESIGN.md)** — full design, decision matrix, threat model
-- **[API Reference](docs/api-reference.md)** — endpoints, fields, CSRF handling, dropdown values
+Full user guide: **[docs/USAGE.md](https://wwwin-github.cisco.com/pages/mmalysz/creative/USAGE.html)** (GitHub Pages)
+
+Covers:
+- When to use each submission path
+- How to formulate your AI prompt
+- Deliverable type cheat sheet
+- Troubleshooting
 
 ---
 
-## Two submission paths
+## For developers
 
-The tool itself supports **both** options natively. This repo wraps each path so
-it can be driven from an OpenCode skill, a script, or a CI hook.
+<details>
+<summary>Scripts, API reference, and design docs</summary>
 
-| Path | When to use | What this repo provides |
-|------|-------------|-------------------------|
-| **A. Manual submission** (`POST /creative-work-add`) | One-off creative work that is *not* a GitHub PR (docs, presentations, internal pages, designs) | `scripts/submit_creative_work.py` + `creative-work-submit` skill |
-| **B. GitHub PR import** (`POST /creative-work-github-add`) | Engineering work delivered as merged PRs on github.com or wwwin-github | `scripts/list_github_prs.py` to preview, plus PR-template + label workflow so the tool picks up only the right PRs |
+### Repository layout
 
-Both paths require an active **Duo SSO session** to the proxy. Path B *also*
-requires a fine-grained GitHub PAT stored once in your tool profile
-(`Settings → GitHub → PAT`), or the in-tool GitHub OAuth flow.
+```
+creative/
+├── README.md
+├── docs/
+│   ├── USAGE.md             # End-user guide (rendered to GitHub Pages)
+│   ├── DESIGN.md            # Full design — both paths, decision matrix, threat model
+│   └── api-reference.md     # Endpoints, fields, CSRF, cookies, dropdowns
+├── skills/
+│   └── creative-work-submit/
+│       └── SKILL.md         # OpenCode skill — drives both paths
+├── scripts/
+│   ├── submit_creative_work.py   # Path A — direct POST
+│   └── list_github_prs.py        # Path B — preview PRs that would be imported
+└── .github/
+    └── pull_request_template.md  # PR title/body conventions for clean import
+```
 
-See [`docs/DESIGN.md`](docs/DESIGN.md) for the full design and
-[`docs/api-reference.md`](docs/api-reference.md) for endpoints, fields, and CSRF
-handling.
-
----
-
-## Quick start
-
-### Path A — manual submission via script
+### Direct script usage (Path A)
 
 ```bash
-# 1. One-time: capture session cookie + CSRF from your authenticated browser
-#    (the helper script tells you exactly what to grab)
+# 1. Capture session cookie + CSRF from your authenticated browser
 python3 scripts/submit_creative_work.py --capture-help
 
 # 2. Export the values
@@ -62,62 +109,26 @@ python3 scripts/submit_creative_work.py \
     --deliverable "Design Document"
 ```
 
-### Path B — GitHub PR import
-
-1. In the tool: **Profile → GitHub** → paste a fine-grained PAT
-   (`https://github.com/settings/tokens?type=beta` — read access to PRs is enough).
-2. On the dashboard: click **Import from GitHub**. The tool fetches all
-   *closed/merged* PRs since the **26th of the previous month** for repos the PAT
-   can see.
-3. Tick the PRs that count as creative work, accept the statement, **Save**.
-
-To pre-flight what the tool will see:
+### GitHub PR pre-flight (Path B)
 
 ```bash
 export GH_TOKEN="github_pat_…"           # fine-grained PAT
 python3 scripts/list_github_prs.py --since-26th
+
+# For Cisco internal GitHub:
+python3 scripts/list_github_prs.py --host wwwin-github.cisco.com --since-26th
 ```
 
----
+### Why not a full MCP server?
 
-## Repository layout
+Considered and rejected for v1 — see [`docs/DESIGN.md`](docs/DESIGN.md#decision-skill--scripts-vs-mcp-server) for the trade-offs. Short version: the tool already exposes a usable POST API and a built-in GitHub importer. A skill + two small scripts cover 100% of the workflow at a fraction of the maintenance cost.
 
-```
-creative/
-├── README.md
-├── docs/
-│   ├── DESIGN.md            # full design — both paths, decision matrix, threat model
-│   └── api-reference.md     # endpoints, fields, CSRF, cookies, dropdowns
-├── skills/
-│   └── creative-work-submit/
-│       └── SKILL.md         # OpenCode skill — drives both paths
-├── scripts/
-│   ├── submit_creative_work.py   # Path A — direct POST
-│   └── list_github_prs.py        # Path B — preview PRs that would be imported
-├── .github/
-│   └── pull_request_template.md  # PR title/body conventions for clean import
-└── project_notes/                # session notes (kept out of distributed builds)
-```
-
-> The auto-label workflow (`.github/workflows/creative-work-tag.yml`) is staged
-> at `/tmp/cwt-workflow.yml` but not committed — adding it requires refreshing
-> the gh CLI token with the `workflow` scope:
-> `gh auth refresh -h github.com -s workflow` then `git add` and push.
-
----
-
-## Why not a full MCP server?
-
-Considered and rejected for v1 — see [`docs/DESIGN.md`](docs/DESIGN.md#decision-skill--scripts-vs-mcp-server)
-for the trade-offs. Short version: the tool already exposes a usable POST API
-and a built-in GitHub importer. A skill + two small scripts cover 100% of the
-workflow at a fraction of the maintenance cost. An MCP server stays on the
-roadmap if multiple Polish CX engineers want to share one Cookie/CSRF refresh
-service.
+</details>
 
 ---
 
 ## Support
 
-Tool support: `itdcsupport@cisco.com`
-Procedure questions: HelpZone → Pay Inquiry → "creative work"
+- **Tool support**: `itdcsupport@cisco.com`
+- **Procedure questions**: HelpZone → Pay Inquiry → "creative work"
+- **Repo issues**: https://github.com/maciejmalysz/creative/issues
