@@ -87,11 +87,14 @@ creative/
 │   ├── submit_creative_work.py   # Path A — direct POST
 │   └── list_github_prs.py        # Path B — preview PRs that would be imported
 ├── .github/
-│   ├── workflows/
-│   │   └── creative-work-tag.yml # auto-label merged PRs as `creative-work`
 │   └── pull_request_template.md  # PR title/body conventions for clean import
 └── project_notes/                # session notes (kept out of distributed builds)
 ```
+
+> The auto-label workflow (`.github/workflows/creative-work-tag.yml`) is staged
+> at `/tmp/cwt-workflow.yml` but not committed — adding it requires refreshing
+> the gh CLI token with the `workflow` scope:
+> `gh auth refresh -h github.com -s workflow` then `git add` and push.
 
 ---
 
