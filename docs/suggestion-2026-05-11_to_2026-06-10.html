@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Work Suggestion — Last 30 Days (2026-05-11 → 2026-06-10)</title>
+    <link rel="stylesheet" href="cisco.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica", Arial, sans-serif;
+            line-height: 1.7;
+            color: #dbe7f5;
+            background:
+                radial-gradient(circle at top left, rgba(48,112,231,0.18), transparent 34%),
+                radial-gradient(circle at top right, rgba(0,200,255,0.12), transparent 26%),
+                linear-gradient(180deg, #07182d 0%, #0d1117 42%, #0d1117 100%);
+            min-height: 100vh;
+        }
+        a { color: var(--cisco-cyber-blue); text-decoration: none; }
+        a:hover { color: white; text-decoration: underline; }
+        .page-shell { position: relative; overflow: hidden; }
+        .page-shell::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(circle at center, black 48%, transparent 100%);
+            opacity: 0.22;
+        }
+        .topbar {
+            max-width: 1200px; margin: 0 auto;
+            padding: 24px 24px 0;
+            display: flex; align-items: center; justify-content: space-between; gap: 18px;
+        }
+        .brand { display: flex; align-items: center; gap: 14px; }
+        .brand-copy {
+            font-size: 12px; letter-spacing: 0.18em;
+            text-transform: uppercase; color: rgba(255,255,255,0.68);
+        }
+        .nav-back a {
+            display: inline-block; padding: 8px 16px;
+            border: 1px solid rgba(148,163,184,0.3);
+            border-radius: 999px; font-size: 13px;
+        }
+        .hero {
+            max-width: 1200px; margin: 0 auto;
+            padding: 44px 24px 24px;
+        }
+        .lede {
+            color: #9fc1ee; text-transform: uppercase;
+            letter-spacing: 0.12em; font-size: 0.8rem; margin-bottom: 10px;
+        }
+        .hero h1 {
+            color: white; font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 16px;
+        }
+        .hero p.tagline { color: #c4d6ed; font-size: 1.1rem; max-width: 800px; }
+        .meta-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px; margin-top: 28px;
+        }
+        .meta-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(148,163,184,0.14);
+            border-radius: 16px; padding: 16px;
+        }
+        .meta-card .label {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 0.12em; color: #9fc1ee; margin-bottom: 6px;
+        }
+        .meta-card .value { color: white; font-weight: 600; font-size: 1.05rem; }
+        .container {
+            max-width: 1200px; margin: 0 auto;
+            padding: 24px; position: relative; z-index: 1;
+        }
+        .section {
+            background: rgba(13,24,43,0.55);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(148,163,184,0.12);
+            border-radius: 24px; padding: 32px; margin-bottom: 24px;
+        }
+        .section h2 {
+            color: white; font-size: 1.6rem;
+            margin-bottom: 18px; letter-spacing: -0.02em;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .tier-badge {
+            display: inline-block; padding: 4px 12px;
+            border-radius: 999px; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+        }
+        .tier-1 { background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+        .tier-2 { background: rgba(48,112,231,0.18); color: #93c5fd; border: 1px solid rgba(48,112,231,0.3); }
+        .tier-3 { background: rgba(148,163,184,0.18); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+        .item {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--cisco-blue);
+            border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+            transition: transform 0.2s, border-left-color 0.2s;
+        }
+        .item:hover { transform: translateX(4px); border-left-color: var(--cisco-cyber-blue); }
+        .item h3 {
+            color: white; font-size: 1.1rem; margin-bottom: 10px;
+            display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+        }
+        .item-num {
+            color: var(--cisco-cyber-blue); font-weight: 700; font-size: 0.9rem;
+        }
+        .item-meta {
+            display: flex; flex-wrap: wrap; gap: 14px;
+            font-size: 0.85rem; color: #9fc1ee; margin: 8px 0 10px;
+        }
+        .item-meta .pill {
+            background: rgba(48,112,231,0.12);
+            padding: 3px 10px; border-radius: 999px;
+        }
+        .item p { color: #d2dfef; margin: 8px 0; }
+        .item .why {
+            margin-top: 10px; padding-top: 10px;
+            border-top: 1px dashed rgba(148,163,184,0.2);
+            font-size: 0.92rem; color: #b8cce4; font-style: italic;
+        }
+        .summary-bar {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px; margin-top: 18px;
+        }
+        .stat {
+            background: rgba(48,112,231,0.1);
+            border: 1px solid rgba(48,112,231,0.25);
+            border-radius: 14px; padding: 16px; text-align: center;
+        }
+        .stat .num { font-size: 2rem; font-weight: 800; color: white; line-height: 1; }
+        .stat .lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #9fc1ee; margin-top: 6px; }
+        code {
+            font-family: "SFMono-Regular", Consolas, Monaco, monospace;
+            background: rgba(255,255,255,0.08); color: #9fd2ff;
+            padding: 2px 6px; border-radius: 6px; font-size: 0.9em;
+        }
+        pre {
+            background: #06101d; color: #e8f1fb;
+            border: 1px solid rgba(48,112,231,0.18);
+            border-radius: 16px; padding: 18px; overflow: auto; margin: 14px 0;
+        }
+        pre code { background: transparent; padding: 0; }
+        ul.clean { list-style: none; padding: 0; }
+        ul.clean li {
+            padding: 8px 0 8px 24px; position: relative;
+        }
+        ul.clean li::before {
+            content: "▸"; position: absolute; left: 4px;
+            color: var(--cisco-cyber-blue); font-weight: 700;
+        }
+        .footer {
+            max-width: 1200px; margin: 40px auto 24px;
+            padding: 24px; text-align: center;
+            font-size: 0.85rem; color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(148,163,184,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="page-shell">
+
+<div class="topbar">
+    <div class="brand">
+        <div class="brand-copy">Cisco · Creative Work Tool</div>
+    </div>
+    <div class="nav-back"><a href="index.html">← Project home</a></div>
+</div>
+
+<div class="hero">
+    <div class="lede">Submission suggestion · Rolling 30 days</div>
+    <h1>Creative Work — 2026-05-11 → 2026-06-10</h1>
+    <p class="tagline">
+        Auto-generated suggestion list of original creative authorship eligible
+        for the Polish creative-work / copyright payroll procedure (KB0066779).
+        Includes merged PRs across <code>wwwin-github.cisco.com</code>, plus
+        documentation and configuration authorship in local repos.
+    </p>
+    <div class="meta-grid">
+        <div class="meta-card"><div class="label">Author</div><div class="value">Maciej Malysz</div></div>
+        <div class="meta-card"><div class="label">Org</div><div class="value">CX EMEA</div></div>
+        <div class="meta-card"><div class="label">Window</div><div class="value">30 days</div></div>
+        <div class="meta-card"><div class="label">Generated</div><div class="value">2026-06-10</div></div>
+    </div>
+</div>
+
+<div class="container">
+
+<div class="section">
+    <h2>Summary</h2>
+    <div class="summary-bar">
+        <div class="stat"><div class="num">13</div><div class="lbl">Total candidates</div></div>
+        <div class="stat"><div class="num">9</div><div class="lbl">Tier 1 (merged PRs)</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Tier 2 (docs/config)</div></div>
+        <div class="stat"><div class="num">1</div><div class="lbl">Tier 3 (minor)</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">Distinct repos</div></div>
+    </div>
+    <p style="margin-top:20px">
+        <strong style="color:white">Recommended path:</strong>
+        Use <strong>Path B — GitHub PR import</strong> for items 1–9, 11
+        (the Creative Work Tool will pull these directly once a Cisco GHE PAT is
+        connected). Use <strong>Path A — manual submission</strong> for items
+        10, 12, 13 (local authorship without merged PRs).
+    </p>
+</div>
+
+<div class="section">
+    <h2><span class="tier-badge tier-1">Tier 1</span> Strongest candidates — merged PRs</h2>
+
+    <div class="item">
+        <h3><span class="item-num">#1</span> avalink — devcontainer-based NSO dev environment</h3>
+        <div class="item-meta">
+            <span class="pill">Code · Dev tooling</span>
+            <span>📅 Merged 2026-06-02</span>
+            <a href="https://wwwin-github.cisco.com/TKSB-POWER/avalink/pull/8">TKSB-POWER/avalink#8 →</a>
+        </div>
+        <p>Authored a reproducible devcontainer for the avalink NSO development environment. Original Dockerfile, devcontainer.json, and bootstrap scripts so any engineer can spin up a working NSO toolchain from a clean checkout.</p>
+        <div class="why">Substantial original tooling design.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#2</span> avalink — TKSB-345: tksb-variables container in ts-common YANG</h3>
+        <div class="item-meta">
+            <span class="pill">Code · YANG model design</span>
+            <span>📅 Merged 2026-06-01</span>
+            <a href="https://wwwin-github.cisco.com/TKSB-POWER/avalink/pull/9">TKSB-POWER/avalink#9 →</a>
+        </div>
+        <p>Designed and added a <code>tksb-variables</code> container to the <code>ts-common</code> YANG module, enabling shared variable scope across TKSB service models.</p>
+        <div class="why">Original data-model design work.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#3</span> ztp-lab — CWM ztp-onboarding workflow rewrite to FRM YANG v0.12.0</h3>
+        <div class="item-meta">
+            <span class="pill">Code · Crosswork Workflow Manager</span>
+            <span>📅 Merged 2026-06-02</span>
+            <a href="https://wwwin-github.cisco.com/mmalysz/ztp-lab/pull/2">mmalysz/ztp-lab#2 →</a>
+        </div>
+        <p>Rewrote the CWM ZTP-onboarding Serverless Workflow against the FRM YANG v0.12.0 schema, including state transitions, error compensation, and Crosswork API integration.</p>
+        <div class="why">Substantial original workflow design.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#4</span> ztp-lab — FRM live-reconfigurable syslog-listen-port</h3>
+        <div class="item-meta">
+            <span class="pill">Code · FRM enhancement</span>
+            <span>📅 Merged 2026-06-02</span>
+            <a href="https://wwwin-github.cisco.com/mmalysz/ztp-lab/pull/1">mmalysz/ztp-lab#1 →</a>
+        </div>
+        <p>Made the FRM <code>syslog-listen-port</code> runtime-reconfigurable from <code>env.conf</code> without service restart.</p>
+        <div class="why">Original feature design and implementation.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#5</span> dcp — DUAUTO-10934 Juniper FIFO policy-description rotation</h3>
+        <div class="item-meta">
+            <span class="pill">Code · NSO service logic</span>
+            <span>📅 Merged 2026-05-11</span>
+            <a href="https://wwwin-github.cisco.com/AS-DU-NSO/dcp/pull/695">AS-DU-NSO/dcp#695 →</a>
+        </div>
+        <p>Implemented FIFO rotation of Juniper policy descriptions to stay within NED-enforced max length while preserving audit history.</p>
+        <div class="why">Original algorithm design solving a NED constraint.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#6</span> dcp — fix(fwa): skip sync-from + no-out-of-sync-check parity with SIRT</h3>
+        <div class="item-meta">
+            <span class="pill">Code · NSO service fix</span>
+            <span>📅 Merged 2026-05-21</span>
+            <a href="https://wwwin-github.cisco.com/AS-DU-NSO/dcp/pull/699">AS-DU-NSO/dcp#699 →</a>
+        </div>
+        <p>Aligned FWA commit semantics with SIRT by skipping <code>sync-from</code> and <code>out-of-sync</code> checks where parity required it.</p>
+        <div class="why">Required reverse-engineering NSO commit-flag interactions; original mitigation.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#7</span> dcp — fix(policy-provision): skip out-of-sync on commit</h3>
+        <div class="item-meta">
+            <span class="pill">Code · NSO service fix</span>
+            <span>📅 Merged 2026-05-14</span>
+            <a href="https://wwwin-github.cisco.com/AS-DU-NSO/dcp/pull/698">AS-DU-NSO/dcp#698 →</a>
+        </div>
+        <p>Skip the out-of-sync check on policy-provision commits to unblock provisioning when device state lags.</p>
+        <div class="why">Original design choice with operational impact.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#8</span> dcp — fix(sirt): -FGT suffix for Fortinet address group</h3>
+        <div class="item-meta">
+            <span class="pill">Code · NSO service fix</span>
+            <span>📅 Merged 2026-05-13</span>
+            <a href="https://wwwin-github.cisco.com/AS-DU-NSO/dcp/pull/696">AS-DU-NSO/dcp#696 →</a>
+        </div>
+        <p>Added <code>-FGT</code> suffix on Fortinet address-group naming inside SIRT to disambiguate from other vendors and avoid collision in shared namespaces.</p>
+        <div class="why">Original naming-convention design.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#9</span> fwa-api — Kafka 2 MB max_partition_fetch_bytes rollout</h3>
+        <div class="item-meta">
+            <span class="pill">Code · Platform tuning</span>
+            <span>📅 Merged 2026-05-13 + 2026-05-19</span>
+            <a href="https://wwwin-github.cisco.com/DU-DEV-TEAM/fwa-api/pull/705">#705 →</a>
+            <a href="https://wwwin-github.cisco.com/DU-DEV-TEAM/fwa-api/pull/706">#706 →</a>
+        </div>
+        <p>Diagnosed Kafka message-size truncation, raised broker max message size to 2 MB, then propagated <code>max_partition_fetch_bytes=2 MB</code> to all consumer groups for parity.</p>
+        <div class="why">Original diagnosis + coordinated multi-component rollout.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2><span class="tier-badge tier-2">Tier 2</span> Documentation &amp; configuration authorship</h2>
+
+    <div class="item">
+        <h3><span class="item-num">#10</span> opencode-config — skills, agents, NSO modeling docs</h3>
+        <div class="item-meta">
+            <span class="pill">Documentation · Agent-config</span>
+            <span>📅 2026-05-17 → 2026-06-03</span>
+            <span><code>~/Projects/opencode-config/</code></span>
+        </div>
+        <p>Substantial original technical writing and agent-system design across multiple commits:</p>
+        <ul class="clean">
+            <li><code>nso-service-data-modeling</code> skill + Cisco-branded HTML doc (<code>c5c7e8d</code>)</li>
+            <li><code>avalink-ned-validation</code> subagent (<code>a8d609d</code>)</li>
+            <li><code>ned-validation</code> skill for NSO NED config extraction (<code>0d4657e</code>)</li>
+            <li>AGENTS.md restructure — extracted RADKit safety + agentic best practices (<code>aa29ebb</code>)</li>
+            <li>Webex OAuth helper consolidation across all skills (<code>c26e6ca</code>, <code>c9d6dc4</code>)</li>
+        </ul>
+        <div class="why">Substantial original technical writing and agent-system design.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#11</span> opencode-config — bulk identifier normalization</h3>
+        <div class="item-meta">
+            <span class="pill">Code · Repo-wide refactor</span>
+            <span>📅 Merged 2026-05-16</span>
+            <a href="https://wwwin-github.cisco.com/mmalysz/opencode-config/pull/3">mmalysz/opencode-config#3 →</a>
+        </div>
+        <p>Repo-wide normalization of identifiers and PII scrub across tracked HEAD.</p>
+        <div class="why">Original cross-cutting refactor.</div>
+    </div>
+
+    <div class="item">
+        <h3><span class="item-num">#12</span> creative — skill, scripts, CI workflow, Cisco-branded HTML docs</h3>
+        <div class="item-meta">
+            <span class="pill">Code + Documentation</span>
+            <span>📅 In window</span>
+            <span><code>~/Projects/creative/</code></span>
+        </div>
+        <p>Substantial original tool + documentation suite (this very project):</p>
+        <ul class="clean">
+            <li>Initial skill + scripts for Creative Work Tool submission (<code>b515dc2</code>)</li>
+            <li>Comprehensive USAGE guide — Path A manual + Path B GitHub PR import (<code>c520c24</code>, <code>3264302</code>)</li>
+            <li>Auto-label GitHub Actions workflow (<code>b515dc2</code>, <code>2cce704</code>)</li>
+            <li>Cisco-branded HTML pages replacing Jekyll (<code>eddae77</code>)</li>
+        </ul>
+        <div class="why">Substantial original tool + documentation suite.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2><span class="tier-badge tier-3">Tier 3</span> Minor / supporting</h2>
+
+    <div class="item">
+        <h3><span class="item-num">#13</span> opencode-config — skill curation pass</h3>
+        <div class="item-meta">
+            <span class="pill">Configuration authorship</span>
+            <span>📅 2026-05-26</span>
+            <span>commit <code>57ff2f2</code></span>
+        </div>
+        <p>Disabled 24 unused/redundant skills, added 2 new ones, tightened trigger descriptions to reduce false matches.</p>
+        <div class="why">Original curation judgment with measurable triggering-quality impact.</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Submission notes</h2>
+    <h3 style="color:white;margin:10px 0 10px;">Path B — GitHub PR import (recommended for items 1–9, 11)</h3>
+    <p>Pre-flight what the tool will see:</p>
+    <pre><code>export GH_TOKEN="github_pat_…"   # Cisco GHE fine-grained PAT, "Pull requests: Read"
+python3 ~/Projects/creative/scripts/list_github_prs.py \
+    --host wwwin-github.cisco.com \
+    --since 2026-05-11</code></pre>
+    <p>PAT scope must cover orgs: <code>TKSB-POWER</code>, <code>mmalysz</code>, <code>AS-DU-NSO</code>, <code>DU-DEV-TEAM</code>.</p>
+
+    <h3 style="color:white;margin:24px 0 10px;">Path A — manual submission (items 10, 12, 13)</h3>
+    <pre><code>python3 ~/Projects/creative/scripts/submit_creative_work.py \
+    --title "&lt;title&gt;" --url "&lt;link&gt;" \
+    --org "&lt;org&gt;" --team "&lt;team&gt;" \
+    --manager "&lt;manager&gt;" --job "&lt;job&gt;" \
+    --deliverable "&lt;deliverable&gt;"</code></pre>
+
+    <h3 style="color:white;margin:24px 0 10px;">Excluded for traceability</h3>
+    <ul class="clean">
+        <li><code>creative-work-may-2026.md</code> — different window/scope.</li>
+        <li>Routine ops/case-management commits in <code>du-fwa-support</code> — operational, not creative.</li>
+        <li>PII-scrub commits across multiple repos — mechanical normalization, not original authorship.</li>
+        <li><code>github.com</code> mirror activity — none in window.</li>
+    </ul>
+</div>
+
+</div>
+
+<div class="footer">
+    Generated 2026-06-10 · Source:
+    <a href="https://wwwin-github.cisco.com/mmalysz/creative">wwwin-github.cisco.com/mmalysz/creative</a>
+    · KB0066779 · 🤖 AI-assisted (reviewed by Maciej)
+</div>
+
+</div>
+</body>
+</html>
